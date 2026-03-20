@@ -1,6 +1,12 @@
-# devtools-hatchery
+<div align="center">
 
-Bun monorepo for Chrome DevTools extensions and shared build helpers.
+# Network++
+
+**Supercharge your Chrome DevTools debugging with AI-native traces.**    
+
+https://github.com/user-attachments/assets/4dabe822-97ee-45a7-ad99-aad5a5092ecb
+
+</div>
 
 ## Extensions
 
