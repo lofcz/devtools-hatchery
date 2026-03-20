@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@source "./";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-accent: oklch(0.65 0.19 252);
+  --color-accent-dim: oklch(0.45 0.14 252);
+  --color-surface: oklch(0.99 0 0);
+  --color-surface-alt: oklch(0.97 0 0);
+  --color-surface-hover: oklch(0.95 0 0);
+  --color-border: oklch(0.9 0 0);
+  --color-text: oklch(0.15 0 0);
+  --color-text-dim: oklch(0.45 0 0);
+  --color-bar: oklch(0.65 0.19 252 / 0.25);
+  --color-danger: oklch(0.63 0.22 25);
+  --color-record: oklch(0.63 0.22 25);
+}
+
+.dark {
+  --color-surface: oklch(0.14 0 0);
+  --color-surface-alt: oklch(0.17 0 0);
+  --color-surface-hover: oklch(0.22 0 0);
+  --color-border: oklch(0.28 0 0);
+  --color-text: oklch(0.9 0 0);
+  --color-text-dim: oklch(0.55 0 0);
+  --color-bar: oklch(0.55 0.16 252 / 0.3);
+  --color-accent: oklch(0.7 0.16 252);
+  --color-accent-dim: oklch(0.55 0.12 252);
+  --color-danger: oklch(0.7 0.2 25);
+  --color-record: oklch(0.7 0.2 25);
+}
+
+@layer base {
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 12px;
+    margin: 0;
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.5 0 0 / 0.25);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.5 0 0 / 0.45);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+@layer components {
+  /* react-resizable-panels handle */
+  [data-panel-group-direction="horizontal"] > [data-resize-handle] {
+    width: 1px;
+    background: var(--color-border);
+    transition: width 0.15s, background-color 0.15s;
+    position: relative;
+  }
+
+  [data-panel-group-direction="horizontal"] > [data-resize-handle]::before {
+    content: "";
+    position: absolute;
+    inset: 0 -3px;
+  }
+
+  [data-panel-group-direction="horizontal"] > [data-resize-handle]:hover,
+  [data-panel-group-direction="horizontal"]
+    > [data-resize-handle][data-resize-handle-active] {
+    width: 3px;
+    background: var(--color-accent);
+  }
+
+  /* Recording indicator pulse */
+  @keyframes rec-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .rec-dot {
+    animation: rec-pulse 1.2s ease-in-out infinite;
+  }
+
+  /* Modal overlay */
+  .prompt-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: oklch(0 0 0 / 0.55);
+    backdrop-filter: blur(2px);
+  }
+
+  .prompt-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    width: 720px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 60px oklch(0 0 0 / 0.3);
+  }
+
+  /* Prompt preview typography */
+  .prompt-preview {
+    font-size: 11px;
+    line-height: 1.65;
+    color: var(--color-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .prompt-preview h2 {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    color: var(--color-text);
+  }
+
+  .prompt-preview h3 {
+    font-size: 12px;
+    font-weight: 600;
+    margin: 12px 0 4px;
+    color: var(--color-text);
+  }
+
+  .prompt-preview strong {
+    font-weight: 600;
+  }
+
+  .prompt-preview code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10px;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 3px;
+    padding: 1px 4px;
+  }
+
+  .prompt-preview table {
+    border-collapse: collapse;
+    font-size: 10px;
+    width: 100%;
+    margin: 4px 0 8px;
+  }
+
+  .prompt-preview th,
+  .prompt-preview td {
+    border: 1px solid var(--color-border);
+    padding: 2px 6px;
+    text-align: left;
+  }
+
+  .prompt-preview th {
+    background: var(--color-surface-alt);
+    font-weight: 600;
+  }
+
+  .prompt-preview ul,
+  .prompt-preview ol {
+    padding-left: 16px;
+    margin: 4px 0;
+  }
+
+  .prompt-preview li {
+    margin: 2px 0;
+  }
+}
